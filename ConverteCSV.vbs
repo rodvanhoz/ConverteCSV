@@ -74,6 +74,13 @@ cont = 0
 		arqsai.WriteLine linhasai
 		WScript.StdOut.Write Chr(13) & "Registros: " & CStr( cont )
 	Loop
+	
+	arqent.Close
+	arqsai.Close
+	
+	WScript.StdOut.WriteBlankLines 2
+	WScript.Quit(0)
+	
 ' FINAL DA IMPLEMENTAÇÃO
 
 ' FUNÇÕES
@@ -95,6 +102,8 @@ Sub carregaLay( caminho )
 		
 		tamlinha = tamlinha & CInt( tkn(1) )
 	Loop
+	
+	arqlay.Close
 End Sub
 
 Function getTamLay( nomecampo )
@@ -170,5 +179,10 @@ End sub
 Sub msgErro( m )
 	msg m
 	WScript.StdOut.WriteBlankLines 1
+	
+	Set arqlog = fs.CreateTextFile( narqlog )
+	arqlog.WriteLine m
+	arqlog.Close
+	
 	WScript.Quit( 1 )
 End Sub
